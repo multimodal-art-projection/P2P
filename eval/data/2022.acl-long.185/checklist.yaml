@@ -1,0 +1,79 @@
+name: 2022.acl-long.185
+checklist:
+  - description: Does the introduction section provide the understanding of the pretrained decoder and the approach to improve the performance and robustness of neural machine translation.
+    max_score: 5
+  - description: Does the introduction section mention decoder is the difference between NLU and NMT pretraining.
+    figure: 0
+    max_score: 5
+  - description: Does the introduction section mention the impact of the jointly pretrained decoder by carefully designing experiments on different NMT benchmark using the released mBART-25 model.
+    max_score: 1
+  - description: Does the introduction section describe the advantages and disadvantages of pretrained decoder for understanding.
+    max_score: 5
+  - description: Does the introduction section describe simple and effective strategies for improving.
+    max_score: 5
+  - description: Can Pretraining encoder significantly improve translation performance? And does jointly pretraining decoder bring further benefits?
+    figure: 1
+    max_score: 5
+  - description: Does the understanding Seq2Seq Pretraining section clearly describe the impact of pretrained decoder on machine translation by case study?
+    figure: 2
+    max_score: 3  
+  - description: Does the understanding Seq2Seq Pretraining section clearly describe the advantages of the pretrained decoder measured by multiple references, especially when large-scale data is involved.
+    figure: 3
+    max_score: 1
+  - description: By human evaluation, can the pretrained decoder reduce translation errors.
+    figure: 4
+    max_score: 1
+  - description: Does the understanding Seq2Seq Pretraining section clearly describe side effects from the discrepancy between pretraining and finetuning?
+    figure: 
+    max_score: 1
+  - description: Is there an introduction to domain discrepancy?
+    figure: 
+    max_score: 1
+  - description: Is there an clear description of Lexical distribution difference between pretraining data (i.e., CC) and downstream NMT data (i.e., WMT news)?
+    figure: 5
+    max_score: 1
+  - description: Does Domain Discrepancy section clearly describe the motivation? 
+    figure: 
+    max_score: 5
+  - description: Is there an introduction to objective discrepancy between NMT and Seq2Seq pretraining? 
+    figure: 
+    max_score: 1
+  - description: Does objective discrepancy section clearly describe model uncertainties for both references and distractors?
+    figure: 6
+    max_score: 1
+  - description: Has the human evaluation been verified model uncertainties?
+    figure: 4
+    max_score: 1
+  - description: Does Hallucination under perturbation section evaluate Model’s tendency of generating hallucination under perturbed input?
+    figure: 8
+    max_score: 1
+  - description: Does Hallucination under perturbation section mention Jointly pretraining decoder is less robust and produces more hallucinations?
+    figure: 
+    max_score: 1
+  - description: Does Hallucination under perturbation section describe the beam search problem for NMT models with Seq2Seq pretraining?
+    figure: 7
+    max_score: 1
+  - description: Does improving Seq2Seq pretraining section mention the approaches to improve the translation quality and model robustness and to bridge the above gaps between Seq2Seq pretraining and finetuning?
+    figure: 
+    max_score: 5
+  - description: Does improving Seq2Seq pretraining section mention the approach of In-domain pretraining for domain discrepancy (ie. Continue training mBART and Dynamic masking strategy)?
+    figure: 
+    max_score: 5
+  - description: Does Experimental Results section include description and analysis main results on translation performance and robustness?
+    figure: 9
+    max_score: 5
+  - description: Does Analysis section mention Narrowing Domain Gap?
+    figure: 9
+    max_score: 5
+  - description: Does Analysis section explain improvements on low-frequency words are the major reason for the performance gains of in-domain pretraining?
+    figure: 10
+    max_score: 3
+  - description: Does Analysis section explain alleviating over-estimation?
+    figure: 11
+    max_score: 1
+  - description: Does Analysis section mention mitigating beam search degradation?
+    figure: 
+    max_score: 1
+  - description: Does Analysis section describe mitigating beam search degradation?
+    figure: 12
+    max_score: 1

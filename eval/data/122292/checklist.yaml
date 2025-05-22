@@ -1,0 +1,29 @@
+name: 122292
+checklist:
+- description: Does the abstract explain the importance of characterizing protein-ligand complex interactions for structural bioinformatics, drug discovery, and biological research, but currently there is a lack of a free comprehensive tool in the research community?
+  max_score: 4
+- description: Does the abstract explain the launch of a protein-ligand interaction analysis tool, PLIP, which can automatically detect and visualize the relevant interactions?
+  max_score: 4
+- description: Does the abstract explain that the tool can provide publication-ready images, PyMOL session files, etc., support subsequent data processing, has a command-line mode for high-throughput analysis, and the Python source code is available?
+  max_score: 5
+- description: Do the images show the structural images of different steps in PLIP processing PDB files?
+  figure: 0
+  max_score: 5
+- description: Are the images and text consistent, introducing the four steps of PLIP detecting and reporting related interactions?
+  max_score: 5
+- description: Do the images show example structures of different types of interactions?
+  figure: 1
+  max_score: 5
+- description: Are the images and text consistent, pointing out that PLIP has seven types of interactions, covering the most relevant contacts between proteins and ligands?
+  max_score: 5
+- description: Do the images show two cases of cathepsin K inhibitors docking with proteins?
+  figure: 2
+  max_score: 4
+- description: Are the images and text consistent, introducing the application of PLIP in docking and pointing out that one method to eliminate false positive docking results is to utilize known key interaction knowledge with the target protein?
+  max_score: 5
+- description: Do the images show the interactions between aldose reductase and three different inhibitors?
+  figure: 3
+  max_score: 5
+- description: Are the images and text consistent, pointing out that it is beneficial to compare substructure interaction patterns between candidate inhibitors in the early stage of inhibitor design?
+  figure: 1
+  max_score: 5

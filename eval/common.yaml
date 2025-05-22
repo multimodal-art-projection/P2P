@@ -1,0 +1,12 @@
+name: universal_academic_poster_checklist  
+checklist:  
+  - description: Authorship and Title Accuracy - Does the poster clearly display the complete paper title and full author names without errors?  
+  - description: Image Uniqueness and Quality - Are images free from duplication, with sufficient visual clarity for presentation?  
+  - description: Balanced White Space - Is the white space proportionally distributed to avoid visual overcrowding or excessive emptiness?  
+  - description: Contextual Relevance - Do images align logically with adjacent text content through placement and thematic connection to enhance comprehension?  
+  - description: Optimal Visual-to-Text Ratio - Does the image coverage proportion effectively convey research content? (Higher image content is preferable when contextually appropriate)  
+  - description: Dimension Appropriateness - Is the poster size suitable for both display environment and content scope, avoiding extreme length/width proportions?  
+  - description: Visual Consistency - Do color schemes, typography, and design elements maintain cohesive branding while adhering to academic standards?  
+  - description: Content Fidelity - Are data representations, formulas, terminology, and findings identical to those in the original paper?  
+  - description: Information Flow Logic - Is content organized in an intuitive sequence that guides viewers through the research narrative?  
+  - description: Self-Contained Explanation - Can the poster be understood without verbal explanation from the presenter?
