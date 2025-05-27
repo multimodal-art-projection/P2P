@@ -1,14 +1,17 @@
 # P2P: Automated Paper-to-Poster Generation and Fine-Grained Benchmark
 
+[![](https://img.shields.io/badge/arXiv-2505.17104-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2505.17104)
+
 [![Dataset - P2PInstruct](https://img.shields.io/badge/Dataset-P2PInstruct-blue)](https://huggingface.co/datasets/ASC8384/P2PInstruct)
 [![Dataset - P2PEval](https://img.shields.io/badge/Dataset-P2PEval-blue)](https://huggingface.co/datasets/ASC8384/P2PEval)
+
 
 
 ## Overview
 
 P2P is an AI-powered tool that automatically converts academic research papers into professional conference posters. This repository contains the code for generating and evaluating these posters, leveraging large language models to extract key information and create visually appealing presentations.
 
-The full research paper is available on [arXiv](https://arxiv.org/abs/XXXX.XXXXX).
+The full research paper is available on [arXiv](https://arxiv.org/abs/2505.17104).
 
 **Note:** Due to the large size of the evaluation and training datasets, only simple samples are included in this repository. The complete datasets are available on HuggingFace:
 - [P2PInstruct](https://huggingface.co/datasets/ASC8384/P2PInstruct) - Training dataset
@@ -125,5 +128,13 @@ Evaluation results will be saved to `eval/temp-v2/results.jsonl`.
 If you find our work useful, please consider citing P2P:
 
 ```bibtex
-
+@misc{sun2025p2pautomatedpapertopostergeneration,
+      title={P2P: Automated Paper-to-Poster Generation and Fine-Grained Benchmark}, 
+      author={Tao Sun and Enhao Pan and Zhengkai Yang and Kaixin Sui and Jiajun Shi and Xianfu Cheng and Tongliang Li and Wenhao Huang and Ge Zhang and Jian Yang and Zhoujun Li},
+      year={2025},
+      eprint={2505.17104},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.17104}, 
+}
 ```
