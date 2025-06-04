@@ -7,15 +7,10 @@ import pathlib
 
 from poster.figures import extract_figures
 from poster.poster import (
-    generate_html,
     generate_html_v2,
-    generate_latex,
     generate_poster_v3,
-    generate_svg,
-    latex_to_png,
     replace_figures_in_poster,
     replace_figures_size_in_poster,
-    svg_to_png,
     take_screenshot,
 )
 

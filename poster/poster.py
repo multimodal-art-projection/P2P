@@ -15,7 +15,7 @@ from tqdm import tqdm
 
 from langchain import hub
 
-from langchain_google_genai import ChatGoogleGenerativeAI
+# from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI, AzureChatOpenAI
 from langchain_openai.chat_models.base import BaseChatOpenAI
 
@@ -206,11 +206,11 @@ def generate_html_v2(vendor: str, model: str, poster: BaseModel, figures: list[s
     style = """<style>
       html {
         font-family: "Times New Roman", Times, serif;
-        font-size: 64px;
+        font-size: 16px;
       }
 
       body {
-        width: 7000px;
+        width: 1280px;
         margin: 0;
       }
 
@@ -401,7 +401,7 @@ def generate_html_v2(vendor: str, model: str, poster: BaseModel, figures: list[s
         section_sizes = get_sizes("section", html_with_figures)
 
         proportion = calculate_blank_proportion(poster_sizes, section_sizes)
-        if proportion < 0.05:
+        if proportion < 0.15:
             print(
                 f"Attempted {attempt} times, remaining {proportion:.0%} blank spaces."
             )
@@ -436,7 +436,7 @@ Now there are {proportion:.0%} blank spaces. Please regenerate the content to cr
 def take_screenshot(output: str, html: str):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 7000, "height": 100})
+        page = browser.new_page(viewport={"width": 1280, "height": 100})
         page.set_content(html)
         page.screenshot(
             type="png", path=output.replace(".json", ".png"), full_page=True
@@ -648,17 +648,6 @@ Paper content:
             SystemMessage(
                 content="You are a helpful academic expert, who is specialized in generating a text-based paper poster, from given contents."
             ),
-            HumanMessage(content="Below is the figures in the paper:"),
-            MessagesPlaceholder(variable_name="figures"),
-            HumanMessagePromptTemplate.from_template(
-                """Below is the content of the paper:
-            <paper_content>
-            {paper_content}
-            </paper_content>
-            If figures can effectively convey the poster content, simplify the related text to avoid redundancy. Include essential mathematical formulas where they enhance understanding.
-            {format_instructions}
-            Ensure all sections are precise, concise, and presented in markdown format without headings."""
-            ),
             HumanMessagePromptTemplate.from_template(
                 """Below is the figures with descriptions in the paper:
 <figures>
@@ -695,23 +684,6 @@ Ensure all sections are precise, concise, and presented in markdown format witho
         [
             SystemMessagePromptTemplate.from_template(
                 "You are a helpful academic expert, who is specialized in generating a paper poster, from given contents and figures. "
-            ),
-            HumanMessage(content="Below is the figures in the paper:"),
-            MessagesPlaceholder(variable_name="figures"),
-            HumanMessagePromptTemplate.from_template(
-                """I have already generated a text-based poster as follows:
-            <poster_content>
-            {poster_content}
-            </poster_content>
-            The paper content is as follows:
-            <paper_content>
-            {paper_content}
-            </paper_content>
-            Insert figures into the poster content using figure index notation as `![figure_description](figure_index)`. For example, `![Overview](0)`.
-            The figure_index MUST be an integer starting from 0, and no other text should be used in the figure_index position.
-            Each figure should be used at most once, with precise and accurate placement.
-            Prioritize pictures and tables based on their relevance and importance to the content.
-            {format_instructions}"""
             ),
             HumanMessagePromptTemplate.from_template(
                 """Below is the figures with descriptions in the paper:
