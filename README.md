@@ -5,7 +5,20 @@
 [![Dataset - P2PInstruct](https://img.shields.io/badge/Dataset-P2PInstruct-blue)](https://huggingface.co/datasets/ASC8384/P2PInstruct)
 [![Dataset - P2PEval](https://img.shields.io/badge/Dataset-P2PEval-blue)](https://huggingface.co/datasets/ASC8384/P2PEval)
 
+## 🚀 Try it on Hugging Face Spaces
 
+This application is deployed on Hugging Face Spaces! You can try it directly in your browser without any installation:
+
+**🎓 [Launch P2P Paper-to-Poster Generator](https://huggingface.co/spaces/ASC8384/P2P)**
+
+### Quick Start on Spaces:
+1. Upload your PDF research paper
+2. Enter your OpenAI API key and base URL (if using proxy)
+3. Input the AI model name (e.g., gpt-4o-mini, claude-3-sonnet)
+4. Configure the figure detection service URL
+5. Click "Generate Poster" and wait for processing
+6. Preview the generated poster and download JSON/HTML files
+7. Recommended to use Claude model for better performance
 
 ## Overview
 
@@ -49,6 +62,7 @@ The full research paper is available on [arXiv](https://arxiv.org/abs/2505.17104
 Install dependencies:
 ```bash
 pip install -r requirements.txt
+playwright install
 ```
 
 ## Usage

@@ -6,6 +6,7 @@ import re
 import subprocess
 import time
 import cairosvg
+from concurrent.futures import ThreadPoolExecutor
 
 from PIL import Image
 from pdf2image import convert_from_path
@@ -388,8 +389,12 @@ def generate_html_v2(vendor: str, model: str, poster: BaseModel, figures: list[s
             / poster_total_size
         )
 
-    max_attempts = 5
-    attempt = 1
+    max_attempts = 6
+    attempt = 0
+
+    min_proportion = float('inf')
+    min_html = None
+    min_html_with_figures = None
 
     while True:
         body = re.search(r"```html\n(.*?)\n```", output, re.DOTALL).group(1)
@@ -401,7 +406,14 @@ def generate_html_v2(vendor: str, model: str, poster: BaseModel, figures: list[s
         section_sizes = get_sizes("section", html_with_figures)
 
         proportion = calculate_blank_proportion(poster_sizes, section_sizes)
-        if proportion < 0.15:
+        
+        print(f"当前比例: {proportion:.0%}")
+        if proportion < min_proportion:
+            min_proportion = proportion
+            min_html = html
+            min_html_with_figures = html_with_figures
+        
+        if proportion <= 0.1:
             print(
                 f"Attempted {attempt} times, remaining {proportion:.0%} blank spaces."
             )
@@ -409,10 +421,16 @@ def generate_html_v2(vendor: str, model: str, poster: BaseModel, figures: list[s
 
         attempt += 1
         if attempt > max_attempts:
-            raise ValueError(f"Invalid blank spaces: {proportion:.0%}")
+            if min_proportion <= 0.2:
+                print(
+                    f"Reached max attempts ({max_attempts}), returning best result with {min_proportion:.0%} blank spaces."
+                )
+                return {"html": min_html, "html_with_figures": min_html_with_figures}
+            else:
+                raise ValueError(f"Invalid blank spaces: {min_proportion:.0%}")
+
 
         react = [
-            # AIMessage(""),
             HumanMessage(
                 content=f"""# Previous Body
 {body}
@@ -514,10 +532,16 @@ def generate_poster_v3(
                 model=model,
                 temperature=1,
                 max_tokens=8000,
-                # model_kwargs={
-                #     "extra_body": {"chat_template_kwargs": {"enable_thinking": False}}
-                # },
             )
+    elif vendor == "azure":
+        llm = AzureChatOpenAI(
+            azure_deployment=model,
+            temperature=1,
+            max_tokens=8000,
+        )
+    else:
+        raise ValueError(f"Unsupported vendor: {vendor}")
+
     loader = PyMuPDFLoader(pdf)
     pages = loader.load()
     paper_content = "\n".join([page.page_content for page in pages])
@@ -629,16 +653,38 @@ Paper content:
             figures_with_descriptions = f.read()
     else:
         figure_chain = figures_description_prompt | (mllm if use_claude else llm)
-        for i, figure in enumerate(tqdm(figures, desc=f"处理图片 {pdf}")):
+        
+        def process_single_figure(figure_data):
+            figure, index = figure_data
             figure_description_response = figure_chain.invoke({"image_data": figure})
+            return {
+                "index": index,
+                "figure": figure,
+                "description": figure_description_response.content
+            }
+        
+        figure_data_list = [(figure, i) for i, figure in enumerate(figures)]
+        
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            results = list(tqdm(
+                executor.map(process_single_figure, figure_data_list),
+                total=len(figure_data_list),
+                desc=f"处理图片 {pdf}"
+            ))
+        
+        for result in results:
+            i = result["index"]
+            print(f"处理图片 {i} 完成")
             figures_with_descriptions += f"""
 <figure_{i}>
-{figure_description_response.content}
+{result["description"]}
 </figure_{i}>
 """
-            figure_list.append(
-                {"figure": figure, "description": figure_description_response.content}
-            )
+            figure_list.append({
+                "figure": result["figure"], 
+                "description": result["description"]
+            })
+            
         if use_claude:
             with open(figures_description_cache, "w") as f:
                 f.write(figures_with_descriptions)
